@@ -20,7 +20,7 @@ In this directory
 DATE_autoCutoff.py: This code is meant to help the user define how many zeros to keep in their OTU table 
 
 Usage:
-	python 2020-12-09_autoCutoff.py FILENAME
+		python 2020-12-09_autoCutoff.py FILENAME
 
 Where:
   FILENAME: is the file with the histogram data
