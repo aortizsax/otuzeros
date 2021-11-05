@@ -12,35 +12,15 @@ In this directory
 .
 ├── README.txt #
 ├── data
-│   ├── PTforcoda.txt
-│   ├── SHTforcoda.txt
 │   ├── alexdata
 │   │   ├── feature-table.biom
-│   │   └── table.from_biom.tsv
-│   ├── alexdataforcoda.txt
-│   ├── cloroxforcoda.txt
-│   ├── nickdata
-│   │   ├── feature-table.biom
-│   │   └── table.from_biom.tsv 
-│   │       # For calc_hist to make a 'forcoda.txt' table 
-│   ├── nickdataforcoda.txt     
-│   │   # Ready for zero filtering
-│   │
-│   │	# Test data
-│   ├── testdata.1.txt
-│   ├── testdata.2.txt
-│   ├── testdata.3.txt
-│   ├── testdata.4.txt
-│   ├── testdata.5.txt
-│   ├── testdata.6.txt		 
-│   └── testdata.txt		 
+│   │   └── table.from_biom.tsv #OTU table
+│   └── nickdata
+│       ├── feature-table.biom
+│       └── table.from_biom.tsv #OTU table
 └── scripts
-    ├── 2020-05-18_autoCutoff.py
-    │   # Run in spyder to get plots 
-    ├── 2021-01-10_autoCutoff.py 
-    │   # Reads data and identfies where to filter the zeros
-    └── 2021-07-26_calc_hist.py  
-        # Reads OTU table 
+    └── calccutoff.py   
+	# commandline script
 ```
 
 
