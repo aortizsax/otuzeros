@@ -2,34 +2,87 @@
 ### Adrian Ortiz-Velez
 
 
-Mathematical basis to remove taxa from an OTU table that are in few samples. 
+This project was created to proved a mathematical backing to eliminting sparse speices 
+in an OTU table or eliminating features in a sparce data matrix.
 
-This script was created to proved a mathematical backing to eliminting features with many 
-zeros.
+DOWNLOAD TO YOUR HARDRIVE and run in commandline. Usage below.
 
 In this directory 
+```
 .
+├── README.txt #
+├── data
+│   ├── PTforcoda.txt
+│   ├── SHTforcoda.txt
+│   ├── alexdata
+│   │   ├── feature-table.biom
+│   │   └── table.from_biom.tsv
+│   ├── alexdataforcoda.txt
+│   ├── cloroxforcoda.txt
+│   ├── nickdata
+│   │   ├── feature-table.biom
+│   │   └── table.from_biom.tsv 
+│   │       # For calc_hist to make a 'forcoda.txt' table 
+│   ├── nickdataforcoda.txt     
+│   │   # Ready for zero filtering
+│   │
+│   │	# Test data
+│   ├── testdata.1.txt
+│   ├── testdata.2.txt
+│   ├── testdata.3.txt
+│   ├── testdata.4.txt
+│   ├── testdata.5.txt
+│   ├── testdata.6.txt		 
+│   └── testdata.txt		 
+└── scripts
+    ├── 2020-05-18_autoCutoff.py
+    │   # Run in spyder to get plots 
+    ├── 2021-01-10_autoCutoff.py 
+    │   # Reads data and identfies where to filter the zeros
+    └── 2021-07-26_calc_hist.py  
+        # Reads OTU table 
+```
 
-├── ./scripts/$DATE_autoCutoff.py      # Reads data and identfies where to cut off the data
 
-├── ./data/testdata.txt            # Test data
-
-└── README.txt
-
-
-DATE_autoCutoff.py: This code is meant to help the user define how many zeros to keep in their OTU table 
+DATE_autoCutoff.py: This code is meant to help the user define how many zeros to keep 
+		    in their OTU table 
 
 Usage:
-		python 2020-12-09_autoCutoff.py FILENAME
+
+	python3 DATE_autoCutoff.py FILENAME flag
 
 Where:
-  FILENAME: is the file with the histogram data
-			               
-testdata.txt: File Format: one row of number of zeros 
-			   one row of number of features with the coorisponding 
-			       of zeros from the first row
-                                    (spaces are added for ease of view) 
-	                1,3,4,5,6,7,8,10,11,12,13,14,15,16,17, 18,  19,  20
-	                1,1,5,8,4,3,2,3, 4, 2, 11,18,34,55,74,171,1272,8697
+	FILENAME: is the OTU table file
+	flag: 0 or 1; use one as default unless the error statment from below 
+	
+	  File "calccutoff.py", line 62, in MakeFileForZeroFilteringCutoff
+    		for ii in i[itterwhere]:
+	TypeError: 'int' object is not iterable
 
-Note: 8697 features have 0s in 20 samples
+Example:
+
+	cd ./scripts
+	python3 calccutoff.py ../data/alexdata/table.from_biom.tsv 0
+ 	table.from_biom.tsv:
+	0/1: for file reading. if data is float == 1
+				if data is string == 0
+Output:
+	Recommended  Cutoff: Keep features with up to and including 247 zeros
+
+In R:
+	
+	#alex data
+	OTUtableA <- read.csv('../data/alexdata/table.from_biom.tsv',
+			     sep = '\t',header = T,row.names = 1,
+			     check.names = F)
+
+	tftabA<-OTUtableA==0
+	tftabA[tftabA] <- 1
+
+	#from python code
+	CUTOFF <- 246.65
+	sum(rowSums(tftabA)>CUTOFF)
+
+	#Zerofiltered OTU table
+	zerofiltOTUa <- OTUtableA[rowSums(tftabA)<CUTOFF,]
+	dim(zerofiltOTUa)
