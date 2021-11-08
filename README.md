@@ -33,7 +33,9 @@ Usage:
 
 Where:
 	FILENAME: is the OTU table file
-	flag: 0 or 1; use one as default unless the error statment from below 
+	flag: 0 or 1; if data is float, flag == 1 
+		      if data is string, flag == 0,
+		      Or change if the error statment from below appears
 	
 	  File "calccutoff.py", line 62, in MakeFileForZeroFilteringCutoff
     		for ii in i[itterwhere]:
@@ -44,7 +46,7 @@ Example:
 	cd ./scripts
 	python3 calccutoff.py ../data/alexdata/table.from_biom.tsv 0
  	table.from_biom.tsv:
-	0/1: for file reading. if data is float == 1
+	#0/1: for file reading. if data is float == 1
 				if data is string == 0
 Output:
 	Recommended  Cutoff: Keep features with up to and including 247 zeros
