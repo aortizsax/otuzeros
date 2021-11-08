@@ -1,4 +1,4 @@
-# otuzeros: README: Qiime2 auto remove features 
+# otuzeros: README: Post-Qiime2 auto remove features/speices
 ### Adrian Ortiz-Velez
 
 
