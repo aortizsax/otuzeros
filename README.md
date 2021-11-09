@@ -7,7 +7,7 @@ in an OTU table or eliminating features in a sparce data matrix.
 Input: OTU table
 Output: Zero filtered table ready for downstream analysis
 
-DOWNLOAD TO YOUR HARDRIVE and run in commandline. Usage below.
+Download and run in commandline. Usage below.
 
 Dependincies:
  * Pandas 1.3.3
@@ -40,7 +40,7 @@ Usage:
 	python3 2021-11-08_calccutoff.py.py FILENAME 
 
 Where:
-	FILENAME: is the OTU table file
+	FILENAME: is the tab seperated OTU table file 
 
 Example:
 
