@@ -32,14 +32,14 @@ Where:
 
 """
 
-
 import pandas as pd
 import sys
+import os
+
 
 from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 
 
 
@@ -66,7 +66,7 @@ def MakeFileForZeroFilteringCutoff(d,OUTFILE,itterwhere=0):
         numzeros = 0
         for ii in i[itterwhere]:
             totsamp += 1
-            if ii == 0.0:
+            if (ii == 0.0)|(ii == '0.0'):
                 numzeros +=1
         histarray[numzeros] +=1
         
@@ -105,10 +105,19 @@ if __name__ == '__main__':
     FILENAME = sys.argv[1]
     PATH = '/'.join(sys.argv[1].split("/")[:-1])+'/zerofilteredOTU'
 
+
+    # Check whether the specified path exists or not
+    isExist = os.path.exists(PATH)
+    
+    if isExist == False:
+          # Create a new directory because it does not exist 
+          os.makedirs(PATH)
+          print("The new directory is created! PATH:",PATH)
+
     OUTFILE = PATH+'/processing.txt'
     dimen = MakeFileForZeroFilteringCutoff(FILENAME, OUTFILE)
     
-    print("Histogram array for autoCutoff.py saved to:",OUTFILE)
+    print("Processing file saved to:",OUTFILE)
     
     print("")
     print("")
@@ -196,21 +205,13 @@ if __name__ == '__main__':
 
     
     print("Recommended  Cutoff: Keep features with up to and including",str(round(cutoff,2)),"zeros")
+    print("")
+    print("")
+    print("")
     
-    import os
     
-    
-    # Check whether the specified path exists or not
-    isExist = os.path.exists(PATH)
-    print(isExist)
-    
-    if isExist == False:
-          # Create a new directory because it does not exist 
-          os.makedirs(PATH)
-          print("The new directory is created! PATH:",PATH)
 
     
-    print(PATH+'/table.zerofiltered.tsv')
     
     
     #plot Curvature    
@@ -226,7 +227,6 @@ if __name__ == '__main__':
     
 
     
-    print(dimen)
     cutoffabsent = cutoff
     cutoff = dimen[0]-cutoff
     presentheight = y_original.copy()
@@ -249,14 +249,24 @@ if __name__ == '__main__':
     plt.show()
     
     
-    df = pd.read_csv(FILENAME,sep='\t',index_col=0,header = 0)
+    df = pd.read_csv(FILENAME,sep='\t')#index_col=0,header = 0)
+    
+
+    
+    if df.columns.to_list()[0] == '# Constructed from biom file':
+        df = pd.read_csv(FILENAME,
+                         sep='\t',
+                         skiprows=1)#index_col=0,header = 0)
+        
+    
     iszero = df == 0.0
     ispres = df != 0.0
     
     OTUzerofiltered = df[ispres.sum(axis=1)>cutoff]
-    OTUzerofiltered.to_csv(PATH+'/table.zerofiltered.tsv')
-    print(df)
-    print(OTUzerofiltered)
+    OTUzerofiltered.to_csv(PATH+'/table.zerofiltered.csv')
+   
+    print("Zero Filtered OTU table saved:",PATH+'/table.zerofiltered.csv')
+
     
     
     
