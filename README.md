@@ -3,9 +3,17 @@
 
 
 This project was created to proved a mathematical backing to eliminting sparse speices 
-in an OTU table or eliminating features in a sparce data matrix.
+in an OTU table or eliminating features in a sparce data matrix. 
+Input: OTU table
+Output: Zero filtered table ready for downstream analysis
 
 DOWNLOAD TO YOUR HARDRIVE and run in commandline. Usage below.
+
+Dependincies:
+ * Pandas 1.3.3
+ * Numpy 1.19.2
+ * Matplotlib 3.3.4
+ * SciPy 1.7.1
 
 In this directory 
 ```
@@ -24,47 +32,27 @@ In this directory
 ```
 
 
-DATE_autoCutoff.py: This code is meant to help the user define how many zeros to keep 
+2021-11-08_calccutoff.py: This code is meant to help the user define how many zeros to keep 
 		    in their OTU table 
 
 Usage:
 
-	python3 DATE_autoCutoff.py FILENAME flag
+	python3 2021-11-08_calccutoff.py.py FILENAME 
 
 Where:
 	FILENAME: is the OTU table file
-	flag: 0 or 1; if data is float, flag == 1 
-		      if data is string, flag == 0,
-		      Or change if the error statment from below appears
-	
-	  File "calccutoff.py", line 62, in MakeFileForZeroFilteringCutoff
-    		for ii in i[itterwhere]:
-	TypeError: 'int' object is not iterable
 
 Example:
 
 	cd ./scripts
-	python3 calccutoff.py ../data/alexdata/table.from_biom.tsv 0
- 	table.from_biom.tsv:
-	#0/1: for file reading. if data is float == 1
-				if data is string == 0
+	python3 2021-11-08_calccutoff.py ../data/alexdata/table.from_biom.tsv 
 Output:
+* Makes a new directory in the same as the input table
+* Saves graphs of finding the max curvature
+* Saves zero filtered table in the new directory
+* Outputs code below for alexdata exaple
+
 	Recommended  Cutoff: Keep features with up to and including 247 zeros
-
-In R:
 	
-	#alex data
-	OTUtableA <- read.csv('../data/alexdata/table.from_biom.tsv',
-			     sep = '\t',header = T,row.names = 1,
-			     check.names = F)
 
-	tftabA<-OTUtableA==0
-	tftabA[tftabA] <- 1
 
-	#from python code
-	CUTOFF <- 246.65
-	sum(rowSums(tftabA)>CUTOFF)
-
-	#Zerofiltered OTU table
-	zerofiltOTUa <- OTUtableA[rowSums(tftabA)<CUTOFF,]
-	dim(zerofiltOTUa)
