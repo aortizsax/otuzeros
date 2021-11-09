@@ -51,8 +51,7 @@ Output:
 * Saves graphs of finding the max curvature
 * Saves zero filtered table in the new directory
 * Outputs code below for alexdata exaple
-
-	Recommended  Cutoff: Keep features with up to and including 247 zeros
-	
-
+```
+Recommended  Cutoff: Keep features with up to and including 247 zeros	
+```
 
