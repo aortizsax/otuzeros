@@ -4,7 +4,7 @@
 
 This project was created to proved a mathematical backing to eliminting sparse speices 
 in an OTU table or eliminating features in a sparce data matrix. 
-Input: OTU table
+Input: OTU table tsv
 Output: Zero filtered table ready for downstream analysis
 
 Download and run in commandline. Usage below.
@@ -37,7 +37,7 @@ In this directory
 
 Usage:
 
-	python3 2021-11-08_calccutoff.py.py FILENAME 
+	python3 2022-06-07_calccutoff.py.py FILENAME 
 
 Where:
 	FILENAME: is the tab seperated OTU table file 
