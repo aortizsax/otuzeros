@@ -9,8 +9,8 @@ table with mathematical backing.
 
 Load values min to max.
 
-Input is a histogram of the number of features 
-with a certain number of zeros. 
+Input is a histogram of the number of features (yaxis)
+with a certain number of zeros(xaxis). 
 
 The histogram is then tansformed with log(hist + c)
 y = log(hist + c)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         for i in range(len(a)):
             bact_zero_table[int(a[i])] = int(b[i])
     #transformation constant
-    con = [100,1000]#,100000]
+    con = [100,1,1000]#,100000]
     conK = con[0]
     
     
@@ -146,10 +146,18 @@ if __name__ == '__main__':
     plt.ylabel('Number of features')
     plt.title('Orignal Histogram')
     plt.show()
-    
-    maxCurv = max(kappa[20:])
+
+    # find the last max local maximum 
+    for k in range(1,len(kappa)-1):
+        #print(kappa[k])
+        if kappa[k]-kappa[k-1]>0:        
+            if kappa[k+1]-kappa[k]<0:
+                maxCurv = kappa[k]
+                
+    # maxCurv = max(kappa[20:]) old find max 
     index = kappa.index(maxCurv)
-    cutoff = xs[index]+1
+    cutoff = xs[index]+0.5
+    
     print("Recommended  Cutoff: Keep features with up to and including",int(cutoff),"zeros")
     
  

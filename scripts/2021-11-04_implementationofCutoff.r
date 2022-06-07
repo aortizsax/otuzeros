@@ -6,9 +6,7 @@ OTUtable <- read.csv('../data/nickdata/table.from_biom.tsv',
 head(OTUtable)
 
 tftab<-OTUtable==0
-tftab[,1]
 tftab[tftab] <- 1
-tftab[tftab==F] <- 0
 
 #from python code
 CUTOFF <- 117.15
@@ -25,14 +23,14 @@ dim(zerofiltOTU)
 
 #alex data
 OTUtableA <- read.csv('../data/alexdata/table.from_biom.tsv',
-                     sep = '\t',header = T,row.names = 1,
-                     check.names = F)
+                      sep = '\t',header = T,row.names = 1,
+                      check.names = F)
 head(OTUtableA)
 
 tftabA<-OTUtableA==0
-tftabA[,1]
+# tftabA[,1]
 tftabA[tftabA] <- 1
-tftabA[tftabA==F] <- 0
+# tftabA[tftabA==F] <- 0
 
 #from python code
 CUTOFF <- 246.65
