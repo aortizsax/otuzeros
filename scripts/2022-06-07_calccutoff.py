@@ -46,6 +46,7 @@ import numpy as np
 def MakeFileForZeroFilteringCutoff(d,OUTFILE,itterwhere=0):
     d=pd.read_table(d,
                 delimiter='\t')
+    print(d)
     histarray = []
     for i in d.iterrows():
         if histarray != []:
@@ -66,7 +67,7 @@ def MakeFileForZeroFilteringCutoff(d,OUTFILE,itterwhere=0):
         numzeros = 0
         for ii in i[itterwhere]:
             totsamp += 1
-            if (ii == 0.0)|(ii == '0.0'):
+            if (ii == 0.0)|(ii == '0.0')|(ii == '0'):
                 numzeros +=1
         histarray[numzeros] +=1
         
@@ -103,12 +104,12 @@ if __name__ == '__main__':
         exit()
             
     FILENAME = sys.argv[1]
-    PATH = '/'.join(sys.argv[1].split("/")[:-1])+'/zerofilteredOTU'
+    PATH = '.' + '/'.join(sys.argv[1].split("/")[:-1])+'/zerofilteredOTU'
 
-
+    print(PATH)
     # Check whether the specified path exists or not
     isExist = os.path.exists(PATH)
-    
+    os.umask(0)
     if isExist == False:
           # Create a new directory because it does not exist 
           os.makedirs(PATH, mode=0o777)
@@ -131,6 +132,7 @@ if __name__ == '__main__':
     with open(processfile, 'r') as f:
         read_data = f.read()
         a = read_data.split("\n")
+        print(a)
         b = a[1].split(",")
         a = a[0].split(",")
     
